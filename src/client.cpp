@@ -22,9 +22,7 @@ websocketpp::connection_hdl hdl_server_;
 std::thread send_task_;
 bool is_running_ = true;
 bool is_connected_ = false;
-
-std::vector<uint8_t> jpeg_data_;
-std::string proto_send_;
+x3::Capture capture_;
 
 // 信号处理函数  
 void signalHandler(int signum) {  
@@ -94,19 +92,16 @@ bool processImage(const std::string &image_source,
 
   // 使用opencv的imencode接口将mat转成vector，获取图片size
   std::vector<int> param;
-  imencode(".jpg", bgr_mat, jpeg_data_, param);
+  std::vector<uint8_t> jpeg_data;
+  imencode(".jpg", bgr_mat, jpeg_data, param);
   
   // 获取当前时间，转成纳秒时间戳
-  auto now = std::chrono::system_clock::now();
-  x3::Capture capture_;
-  capture_.set_timestamp_(now.time_since_epoch().count());
+  capture_.set_timestamp_(std::chrono::system_clock::now().time_since_epoch().count());
   auto image = capture_.mutable_img_();
-  image->set_buf_((const char *)jpeg_data_.data(), jpeg_data_.size());
+  image->set_buf_((const char *)jpeg_data.data(), jpeg_data.size());
   image->set_type_("jpeg");
   image->set_width_(bgr_mat.cols);
   image->set_height_(bgr_mat.rows);
-
-  capture_.SerializeToString(&proto_send_);
 
   return true;
 }
@@ -163,11 +158,12 @@ int main(int argc, char* argv[]) {
                 continue;
             }
 
-            std::cout << "send image size: " << jpeg_data_.size() << "\n\n";
-            if (!proto_send_.empty()) {
-              ws_c.send(hdl_server_, reinterpret_cast<void *>(proto_send_.data()), proto_send_.size(),
-              websocketpp::frame::opcode::binary);
-            }
+            std::cout << "send image\n\n";
+            std::string proto_send;
+            capture_.set_timestamp_(std::chrono::system_clock::now().time_since_epoch().count());
+            capture_.SerializeToString(&proto_send);
+            ws_c.send(hdl_server_, reinterpret_cast<void *>(proto_send.data()), proto_send.size(),
+            websocketpp::frame::opcode::binary);
             std::this_thread::sleep_for(std::chrono::milliseconds(200));
         }
     });
