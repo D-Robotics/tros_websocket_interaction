@@ -39,9 +39,9 @@ cd /userdata/tros/src/tros_websocket_interaction
 
 **注意：**使用实际`IP`地址替换示例中的`192.168.3.123`。
 
-# 结果
+# 结果展示
 
-web端浏览器显示如下：
+PC的WEB浏览器显示如下：
 
 ![](imgs/web.gif)
 
