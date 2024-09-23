@@ -3,6 +3,18 @@
 
 在`RDK X5`上运行websocket server和client。client端将图片发送到server端，server端经过算法推理后将图片对应的感知结果发送到client端，同时在PC的WEB端渲染图片和感知结果。
 
+# 准备工作
+
+## RDK X5
+
+[参考手册](https://developer.d-robotics.cc/rdk_doc/Robot_development/quick_start/preparation)，RDK已烧录好Ubuntu系统镜像，已成功安装tros.b。
+
+## ROS2软件包编译工具
+
+```shell
+sudo apt install ros-dev-tools
+```
+
 # 下载代码，编译和安装
 ```bash
 # websocket server
