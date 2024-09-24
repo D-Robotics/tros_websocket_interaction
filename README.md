@@ -53,7 +53,7 @@ cd /userdata/tros/src/tros_websocket_interaction
 
 # 结果展示
 
-PC的WEB浏览器显示如下：
+在PC端的浏览器输入http://IP:8000 即可查看图像和算法渲染效果（IP为RDK的IP地址）：
 
 ![](imgs/web.jpg)
 
