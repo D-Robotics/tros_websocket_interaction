@@ -31,10 +31,13 @@ def generate_launch_description():
         "yolo_world_msg_pub_topic_name", default_value=TextSubstitution(text="hobot_yolo_world")
     )
     texts_launch_arg = DeclareLaunchArgument(
-        "yolo_world_texts", default_value=TextSubstitution(text="trash bin,red bottle")
+        "yolo_world_texts", default_value=TextSubstitution(text="liquid stain,mild stain,solid stain,congee stain")
     )
     dump_render_launch_arg = DeclareLaunchArgument(
         "yolo_world_dump_render_img", default_value=TextSubstitution(text="0")
+    )
+    port_interaction_arg = DeclareLaunchArgument(
+        "ws_port_interaction", default_value=TextSubstitution(text="8081")
     )
 
     # jpeg->nv12
@@ -54,7 +57,7 @@ def generate_launch_description():
     # web展示pkg
     web_smart_topic_arg = DeclareLaunchArgument(
         'smart_topic',
-        default_value='/hobot_mono2d_body_detection',
+        default_value='/hobot_yolo_world',
         description='websocket smart topic')
     web_node = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
@@ -81,7 +84,9 @@ def generate_launch_description():
                 "yolo_world_msg_pub_topic_name")},
             {"texts": LaunchConfiguration(
                 "yolo_world_texts")},
-            {"ros_img_sub_topic_name": '/image_raw'}
+            {"ros_img_sub_topic_name": '/image_raw'},
+            {"ai_msg_pub_topic_name": '/hobot_yolo_world'},
+            {"port_interaction": LaunchConfiguration("ws_port_interaction")}
         ],
         arguments=['--ros-args', '--log-level', 'warn']
     )
@@ -91,6 +96,7 @@ def generate_launch_description():
         msg_pub_topic_name_launch_arg,
         dump_render_launch_arg,
         texts_launch_arg,
+        port_interaction_arg,
         # 图片编解码&发布pkg
         nv12_codec_node,
         # 启动yoloworld pkg

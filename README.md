@@ -37,10 +37,11 @@ cd -
 终端1，启动感知和websocket server：
 ```bash
 source /opt/tros/humble/setup.bash
+source /userdata/sam/install/local_setup.bash
 source /userdata/tros/install/local_setup.bash
 cd /userdata/tros/src/tros_websocket_interaction
 cp -r /opt/tros/${TROS_DISTRO}/lib/hobot_yolo_world/config/ .
-ros2 launch install/launch/yolo_world.launch.py yolo_world_texts:="red bottle,trash bin" smart_topic:=/hobot_yolo_world
+ros2 launch install/launch/yolo_world.launch.py smart_topic:=/hobot_yolo_world ws_port_interaction:=8081
 ```
 
 终端2，启动client端，发送图片：
