@@ -37,26 +37,25 @@ cd -
 终端1，启动感知和websocket server：
 ```bash
 source /opt/tros/humble/setup.bash
-source /userdata/sam/install/local_setup.bash
 source /userdata/tros/install/local_setup.bash
 cd /userdata/tros/src/tros_websocket_interaction
-cp -r /opt/tros/${TROS_DISTRO}/lib/hobot_yolo_world/config/ .
+cp -r /userdata/sam/install/lib/hobot_yolo_world/config .
 ros2 launch install/launch/yolo_world.launch.py smart_topic:=/hobot_yolo_world ws_port_interaction:=8081
 ```
 
 终端2，启动client端，发送图片：
 ```bash
 cd /userdata/tros/src/tros_websocket_interaction
-./install/tros_websocket_client http://192.168.3.123:8081 install/config/yolo_world_test.jpg
+./install/tros_websocket_client http://localhost:8081 ./config/00131.jpg
 ```
 
-**注意：**使用实际`IP`地址替换示例中的`192.168.3.123`。
+**注意：**如果client不是RDK X5，使用client的实际`IP`地址替换示例中的`localhost`。
 
 # 结果展示
 
 PC的WEB浏览器显示如下：
 
-![](imgs/web.gif)
+![](imgs/web.jpg)
 
 两个终端输出如下log：
 
