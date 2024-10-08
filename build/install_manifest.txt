@@ -1,0 +1,3 @@
+/userdata/zixi01.chen/tros_websocket_interaction/install/tros_websocket_client
+/userdata/zixi01.chen/tros_websocket_interaction/install/config/yolo_world_test.jpg
+/userdata/zixi01.chen/tros_websocket_interaction/install/launch/yolo_world.launch.py

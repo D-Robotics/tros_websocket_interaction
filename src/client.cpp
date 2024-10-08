@@ -69,6 +69,9 @@ void on_message(client* ws_c, websocketpp::connection_hdl hdl, message_ptr msg) 
               << ", bottom_right: " << box.bottom_right_().x_() << " " << box.bottom_right_().y_()
               << ", score: " << box.score();
           }
+          for (const auto& attribute : target.attributes_()) {
+            ss << ", " << attribute.type_() << ": " << attribute.value_();
+          }
         }
         std::cout << ss.str() << std::endl;
     }

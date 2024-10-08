@@ -10,6 +10,7 @@ include_directories(
   ${CMAKE_CURRENT_SOURCE_DIR}/include
   ${CMAKE_CURRENT_SOURCE_DIR}/include/proto
   ${CMAKE_CURRENT_SOURCE_DIR}/third_party/
+  ${CMAKE_CURRENT_SOURCE_DIR}/third_party/opencv2
   ${CMAKE_CURRENT_SOURCE_DIR}/third_party/protobuf/include
 )
 
